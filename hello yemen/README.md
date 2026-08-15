@@ -1,0 +1,1 @@
+In my first time into data analysis, I downloaded and cleaned some HDX databases of Yemen migrants that arrive either to stay or to leave again. I generate in a unique output some statistics about the migrants profile based on their gender or their age, their route and means of transport. Finally I generated a plot to see how is the fluctuation of people in a time line.
