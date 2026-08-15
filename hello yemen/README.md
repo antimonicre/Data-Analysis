@@ -9,30 +9,29 @@ As we can see in the photo, the main route for migrants was entering through Lah
 <img src="grafico_yemen.png" width="800" alt="Yemen migration flux by year">
 
 
+---
 ### Data Extraction
 
-==================================================
-Migrants split by gender
-==================================================
-Total registered enters: 379,112
-• Men: 246,522 (65.0%)
-• Women: 68,095 (18.0%)
-• Minors from the total: 64,495 (17.0%)
+**Migrants split by gender**
 
-==================================================
-Most frequent routes
-==================================================
-Departure           Destination
+Total registered enters: 379,112 \
+• **Men**: 246,522 (65.0%) \
+• **Women**: 68,095 (18.0%) \
+• **Minors from the total**: 64,495 (17.0%) \
 
-Djibouti            Saudi Arabia                251573
-Somalia             Saudi Arabia                101412
-Djibouti            Yemen                        18358
-Oman                Yemen                         6460
-Djibouti            Oman                           999
+**Most frequent routes**
 
-==================================================
-Most frequent destinations for minors
-==================================================
-Saudi Arabia    58206
-Yemen            6015
+| Departure | Destination | Number of people |
+|-- |-- | --|
+| Djibouti            |Saudi Arabia |               251573|
+| Somalia             |Saudi Arabia  |              101412|
+| Djibouti            |Yemen         |               18358|
+| Oman                |Yemen         |                6460|
+| Djibouti            |Oman          |                 999|
+
+
+**Most frequent destinations for minors**
+
+Saudi Arabia    58206 \
+Yemen            6015 \
 Oman              274
