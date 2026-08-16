@@ -1,9 +1,11 @@
+from pathlib import Path
 import pandas as pd
-import scipy
-import matplotlib
 
-df = pd.read_excel("/Users/keni/Desktop/datasets/filtrado.xlsx")
+# 1. CARGA DE DATOS
+ruta_entrada = Path("/Users/keni/Desktop/datasets/filtrado.xlsx")
+df = pd.read_excel(ruta_entrada)
 
+# Definición de columnas
 col_total = "Total Number of Individuals migrants"
 col_hombres = "Men"
 col_mujeres = "Women"
@@ -14,65 +16,79 @@ col_year = "Year"
 col_origen = "Departure (admin0)"
 col_destino = "[[Destination ] (admin0)"
 
+# Cálculos generales
 total = df[col_total].sum()
 total_h = df[col_hombres].sum()
 total_m = df[col_mujeres].sum()
 df["total_kids"] = df[col_ninos] + df[col_ninas]
 total_kids = df["total_kids"].sum()
 
+# -------------------------------------------------------------
+# ESTRUCTURACIÓN DE RESULTADOS PARA EXCEL
+# -------------------------------------------------------------
 
-print("==================================================")
-print("1. PERFIL DEMOGRÁFICO GENERAL")
-print("==================================================")
-print(f"Total entradas registradas: {total:,.0f}")
-print(f"• Hombres: {total_h:,.0f} ({(total_h/total)*100:.1f}%)")
-print(f"• Mujeres: {total_m:,.0f} ({(total_m/total)*100:.1f}%)")
-print(
-    f"• Menores frente a adultos: {total_kids:,.0f} ({(total_kids/total)*100:.1f}%)\n"
+# Tabla 1: Perfil Demográfico
+df_perfil = pd.DataFrame(
+    [
+        {
+            "Categoría": "Total entradas registradas",
+            "Cantidad": total,
+            "Porcentaje": "100.0%",
+        },
+        {
+            "Categoría": "Hombres",
+            "Cantidad": total_h,
+            "Porcentaje": f"{(total_h/total)*100:.1f}%",
+        },
+        {
+            "Categoría": "Mujeres",
+            "Cantidad": total_m,
+            "Porcentaje": f"{(total_m/total)*100:.1f}%",
+        },
+        {
+            "Categoría": "Menores",
+            "Cantidad": total_kids,
+            "Porcentaje": f"{(total_kids/total)*100:.1f}%",
+        },
+    ]
 )
 
+# Tabla 2: Evolución Temporal
+df_evolucion = (
+    df.groupby([col_year, col_mes])[col_total].sum().reset_index()
+)
 
-# -------------------------------------------------------------
-# PREGUNTA 2: EVOLUCIÓN TEMPORAL (Serie del tiempo)
-# -------------------------------------------------------------
-print("==================================================")
-print("2. EVOLUCIÓN DE ENTRADAS POR PERIODO")
-print("==================================================")
-evolucion = (
-    df.groupby([col_year, col_mes])["Total Number of Individuals migrants"]
+# Tabla 3: Top Rutas Migratorias
+df_rutas = (
+    df.groupby([col_origen, col_destino])[col_total]
     .sum()
     .reset_index()
-)
-print(evolucion.to_string(index=False))
-print("\n")
-
-
-# -------------------------------------------------------------
-# PREGUNTA 3: RUTAS Y PAÍSES DE ORIGEN
-# -------------------------------------------------------------
-print("==================================================")
-print("3. RUTAS MIGRATORIAS MÁS FRECUENTADAS")
-print("==================================================")
-rutas = (
-    df.groupby([col_origen, col_destino])["Total Number of Individuals migrants"]
-    .sum()
-    .sort_values(ascending=False)
+    .sort_values(by=col_total, ascending=False)
     .head(5)
 )
-print(rutas)
-print("\n")
 
-
-# -------------------------------------------------------------
-# PREGUNTA 4: GEOGRAFÍA DE VULNERABILIDAD DE MENORES
-# -------------------------------------------------------------
-print("==================================================")
-print("4. TOP 5 DESTINOS CON MAYOR LLEGADA DE MENORES")
-print("==================================================")
-destinos_menores = (
+# Tabla 4: Top Destinos con Menores
+df_destinos_menores = (
     df.groupby(col_destino)["total_kids"]
     .sum()
-    .sort_values(ascending=False)
+    .reset_index()
+    .sort_values(by="total_kids", ascending=False)
     .head(5)
 )
-print(destinos_menores)
+
+# -------------------------------------------------------------
+# EXPORTACIÓN A HOJA DE EXCEL
+# -------------------------------------------------------------
+ruta_salida = Path("/Users/keni/Desktop/results/resultados_extraidos.xlsx")
+
+with pd.ExcelWriter(ruta_salida, engine="openpyxl") as writer:
+    df_perfil.to_excel(writer, sheet_name="Perfil Demográfico", index=False)
+    df_evolucion.to_excel(writer, sheet_name="Evolución Temporal", index=False)
+    df_rutas.to_excel(writer, sheet_name="Top Rutas", index=False)
+    df_destinos_menores.to_excel(
+        writer, sheet_name="Destinos Menores", index=False
+    )
+
+print(
+    f"¡Archivo generado con éxito! Puedes abrirlo en: {ruta_salida}"
+)
