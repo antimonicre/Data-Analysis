@@ -42,7 +42,7 @@ ax.plot(
     marker='o',
     linewidth=2.5,
     color='#1f77b4',
-    label='Entradas registradas',
+    label='Registered entries',
 )
 
 date_lahj = pd.to_datetime('2023-08-01')
@@ -54,25 +54,25 @@ ax.axvline(
     color='#d62728',
     linestyle='--',
     linewidth=2,
-    label='Ago 2023: Operación en Lahj',
+    label='Ago 2023: Lahj operation',
 )
 ax.axvline(
     x=date_taiz,
     color='#2ca02c',
     linestyle='--',
     linewidth=2,
-    label='Oct 2024: Acceso OIM a Ta\'iz',
+    label='Oct 2024: OIM access to Ta\'iz',
 )
 ax.axvspan(
     date_lahj,
     date_taiz,
     color='gray',
     alpha=0.15,
-    label='Período de sesgo por falta de acceso',
+    label='Lack of monitoring period',
 )
 
 ax.annotate(
-    'Operación antitráfico\nen Lahj (Desvío de rutas)',
+    'Antitrafficking operation\nin Lahj (Routes diversion)',
     xy=(
         date_lahj,
         4176,
@@ -95,7 +95,7 @@ ax.annotate(
 )
 
 ax.annotate(
-    'Monitoreo en Ta\'iz\n(Fin del punto ciego)',
+    'Monitoring set up in Ta\'iz\n',
     xy=(date_taiz, 6364),
     xytext=(pd.to_datetime('2024-01-01'), 9500),
     arrowprops=dict(
@@ -107,13 +107,13 @@ ax.annotate(
 )
 
 ax.set_title(
-    'Entradas Migratorias a Yemen (2023 - 2026)\n',
+    'Migratory entries to Yemen (2023 - 2026)\n',
     fontsize=13,
     fontweight='bold',
     pad=15,
 )
-ax.set_xlabel('Año y Mes', fontsize=11)
-ax.set_ylabel('Total de migrantes registrados', fontsize=11)
+ax.set_xlabel('Year - Month', fontsize=11)
+ax.set_ylabel('Total registered migrants', fontsize=11)
 ax.grid(True, linestyle=':', alpha=0.6)
 ax.legend(loc='upper left', frameon=True, facecolor='white', framealpha=0.9)
 
