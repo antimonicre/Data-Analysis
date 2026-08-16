@@ -6,7 +6,7 @@ In my first time into data analysis, I downloaded and cleaned some HDX databases
 
 As we can see in the photo, the main route for migrants was entering through Lahj, but in August 2024 there was a military operation by the Yemen's Government to fight the human trafficking networks. So the route through Lahj was closed and the migration numbers went down to 0. Then, in grey colour we can see a low interval, which is due to no one was monitoring the new main arrival city, Taiz. Since November 2024, the numbers go up again as the monitoring was set up again.
 
-
+<img src="grafico_yemen.png" width="800" alt="Yemen migration flux by year">
 
 ---
 ### Data Extraction
