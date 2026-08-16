@@ -34,7 +34,7 @@ evolucion['fecha'] = pd.to_datetime(
 )
 evolucion = evolucion.sort_values('fecha')
 
-fig, ax = plt.subplots(figsize=(11, 6))
+fig, ax = plt.subplots(figsize=(12, 6))
 
 ax.plot(
     evolucion['fecha'],
@@ -48,7 +48,7 @@ ax.plot(
 date_lahj = pd.to_datetime('2023-08-01')
 date_taiz = pd.to_datetime('2024-10-01')
 
-# Líneas verticales e intervalo del "Punto Ciego"
+
 ax.axvline(
     x=date_lahj,
     color='#d62728',
@@ -72,13 +72,24 @@ ax.axvspan(
 )
 
 ax.annotate(
-    'Campaña en Lahj\n(Desvío de rutas)',
-    xy=(date_lahj, 4176),
-    xytext=(pd.to_datetime('2023-02-01'), 16500),
-    arrowprops=dict(
-        facecolor='#d62728', shrink=0.08, width=1.5, headwidth=7
+    'Operación antitráfico\nen Lahj (Desvío de rutas)',
+    xy=(
+        date_lahj,
+        4176,
     ),
-    fontsize=10,
+    xytext=(
+        pd.to_datetime('2024-05-01'),
+        16000,
+    ),
+    ha='right',
+    arrowprops=dict(
+        facecolor='#d62728',
+        edgecolor='#d62728',
+        shrink=0.05,
+        width=1.5,
+        headwidth=7,
+    ),
+    fontsize=9.5,
     fontweight='bold',
     color='#d62728',
 )
@@ -86,7 +97,7 @@ ax.annotate(
 ax.annotate(
     'Monitoreo en Ta\'iz\n(Fin del punto ciego)',
     xy=(date_taiz, 6364),
-    xytext=(pd.to_datetime('2024-01-01'), 11500),
+    xytext=(pd.to_datetime('2024-01-01'), 9500),
     arrowprops=dict(
         facecolor='#2ca02c', shrink=0.08, width=1.5, headwidth=7
     ),
@@ -96,7 +107,7 @@ ax.annotate(
 )
 
 ax.set_title(
-    'Evolución de Entradas Migratorias a Yemen (2023 - 2026)\nImpacto de Hitos Operativos y Sesgos de Medición',
+    'Entradas Migratorias a Yemen (2023 - 2026)\n',
     fontsize=13,
     fontweight='bold',
     pad=15,
@@ -105,6 +116,16 @@ ax.set_xlabel('Año y Mes', fontsize=11)
 ax.set_ylabel('Total de migrantes registrados', fontsize=11)
 ax.grid(True, linestyle=':', alpha=0.6)
 ax.legend(loc='upper left', frameon=True, facecolor='white', framealpha=0.9)
+
+ax.legend(
+    loc='upper center',
+    bbox_to_anchor=(0.75, -0.18),
+    ncol=2,
+    frameon=True,
+    facecolor='white',
+    framealpha=0.95,
+    fontsize=9.5,
+)
 
 # Guardar la imagen en tu carpeta
 plt.tight_layout()
