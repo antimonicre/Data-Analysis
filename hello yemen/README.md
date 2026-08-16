@@ -16,7 +16,9 @@ As we can see in the photo, the main route for migrants was entering through Lah
 Total registered enters: 379,112 \
 • **Men**: 246,522 (65.0%) \
 • **Women**: 68,095 (18.0%) \
-• **Minors from the total**: 64,495 (17.0%) \
+• **Minors from the total**: 64,495 (17.0%)
+
+
 
 **Most frequent routes**
 
