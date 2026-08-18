@@ -33,6 +33,13 @@ Total registered enters: 379,112 \
 
 **Most frequent destinations for minors**
 
-Saudi Arabia    58206 \
-Yemen            6015 \
+Saudi Arabia      58206 \
+Yemen             6015 \
 Oman              274
+
+**Most frequent means of transport**
+
+Boat         98.3% \
+Foot pedal bike               1.68% \
+Hired vehicle                 0.02% \
+Private vehicle               0%
