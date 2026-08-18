@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 # 1. CARGA DE DATOS
-ruta_entrada = Path("/Users/keni/Desktop/datasets/filtrado.xlsx")
+ruta_entrada = Path("/Users/keni/Desktop/datasets/yemen/filtrado.xlsx")
 df = pd.read_excel(ruta_entrada)
 
 # Definición de columnas
@@ -15,6 +15,7 @@ col_mes = "Month"
 col_year = "Year"
 col_origen = "Departure (admin0)"
 col_destino = "[[Destination ] (admin0)"
+col_transport = "Mean of Transport"
 
 # Cálculos generales
 total = df[col_total].sum()
@@ -76,6 +77,19 @@ df_destinos_menores = (
     .head(5)
 )
 
+# Tabla 5: Medios más frecuentes
+
+df_transport= (
+    df.groupby(col_transport)[col_total]
+    .sum()
+    .reset_index()
+    .sort_values(by=col_total, ascending=False)
+)
+
+df_transport["porcentaje"] = (
+    df_transport[col_total] / df_transport[col_total].sum() * 100
+).round(2)
+
 # -------------------------------------------------------------
 # EXPORTACIÓN A HOJA DE EXCEL
 # -------------------------------------------------------------
@@ -84,10 +98,11 @@ ruta_salida = Path("/Users/keni/Desktop/results/resultados_extraidos.xlsx")
 with pd.ExcelWriter(ruta_salida, engine="openpyxl") as writer:
     df_perfil.to_excel(writer, sheet_name="Perfil Demográfico", index=False)
     df_evolucion.to_excel(writer, sheet_name="Evolución Temporal", index=False)
-    df_rutas.to_excel(writer, sheet_name="Top Rutas", index=False)
+    df_rutas.to_excel(writer, sheet_name="Rutas", index=False)
     df_destinos_menores.to_excel(
         writer, sheet_name="Destinos Menores", index=False
     )
+    df_transport.to_excel(writer, sheet_name="Medios de Transporte", index=False)
 
 print(
     f"¡Archivo generado con éxito! Puedes abrirlo en: {ruta_salida}"
